@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Soep&Soul - Developer Vacature</title>
+  <style>
+    /* Reset / base */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html,body { height: 100%; }
+    body{
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg,#32373C 0%,#101214 100%);
+      color: #fff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    /* Container */
+    .container { max-width: 1000px; margin: 0 auto; position: relative; }
+
+    /* Decorative floating elements (kept subtle) */
+    .floating-element { position: fixed; pointer-events: none; opacity: 0.06; z-index: 0; }
+    .floating-bowl { top: 8%; right: 4%; width: 220px; height: 220px; animation: float 16s ease-in-out infinite; }
+    .floating-steam { top: 36%; left: -6%; width: 160px; height: 320px; animation: float 20s ease-in-out infinite reverse; }
+    .floating-leaf { bottom: 14%; right: 10%; width: 120px; height: 120px; animation: float 18s ease-in-out infinite; }
+    @keyframes float { 0%,100%{transform:translate(0,0) rotate(0deg)} 50%{transform:translate(-18px,18px) rotate(4deg)} }
+
+    /* Header */
+    .header{
+      text-align:center;
+      margin-bottom:36px;
+      background: rgba(50,55,60,0.55);
+      backdrop-filter: blur(12px);
+      border-radius:20px;
+      padding:32px;
+      border: 1px solid rgba(57,181,74,0.2);
+      position:relative; z-index:1;
+    }
+    .vacature-badge{
+      display:inline-block;
+      background: linear-gradient(135deg,#39B54A,#2d8f3c);
+      color:#fff;
+      padding:10px 22px;
+      border-radius:20px;
+      font-weight:700;
+      font-size:0.95rem;
+      letter-spacing:1.5px;
+      box-shadow:0 6px 20px rgba(57,181,74,0.25);
+      margin-bottom:12px;
+    }
+    .logo-text{
+      font-size: clamp(2rem,6vw,3.6rem);
+      font-weight:800;
+      background: linear-gradient(135deg,#39B54A,#2d8f3c);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      margin-bottom:6px;
+    }
+    .subtitle{ font-size: clamp(1rem,2.6vw,1.25rem); font-weight:600; color:#eafbe9; opacity:0.95; margin-bottom:6px; }
+    .tagline{ color: rgba(255,255,255,0.78); font-style:italic; font-weight:300; margin-top:6px; }
+
+    /* Cards */
+    .card{
+      background: rgba(50,55,60,0.6);
+      backdrop-filter: blur(8px);
+      border-radius:20px;
+      padding: clamp(20px,4.5vw,34px);
+      margin-bottom:22px;
+      border:1px solid rgba(57,181,74,0.12);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+      position:relative; z-index:1;
+    }
+    .card:hover{ transform: translateY(-4px); transition: transform .25s ease; }
+
+    h2{
+      font-size: clamp(1.25rem,3.4vw,1.9rem);
+      color:#39B54A;
+      font-weight:700;
+      margin-bottom:18px;
+      display:flex; align-items:center; gap:14px;
+    }
+    .intro{ font-size: clamp(0.98rem,2.4vw,1.08rem); color: rgba(255,255,255,0.95); line-height:1.7; }
+
+    .content{ font-size: clamp(1rem,2.4vw,1.07rem); color: rgba(255,255,255,0.9); line-height:1.8; }
+
+    /* --- CTA / emphasis styles requested --- */
+    /* Instruction line — make clearly actionable */
+    .cta-instruction {
+      display:block;
+      font-size: clamp(1.05rem,2.6vw,1.25rem);
+      color: #eaf8e8;            /* near-white, stands out on dark background */
+      font-weight:600;
+      margin-bottom:12px;
+    }
+    .cta-instruction .muted { color: rgba(255,255,255,0.82); font-weight:400; }
+
+    /* Codeword box (highly visible, matches second image) */
+    .codeword {
+      display:inline-block;
+      width:100%;
+      max-width:520px;
+      text-align:center;
+      background: linear-gradient(180deg, rgba(57,181,74,0.06), rgba(57,181,74,0.03));
+      color: #1b6f2a;                    /* darker green text for clear legibility */
+      border: 2px solid rgba(57,181,74,0.15);
+      padding: 18px 26px;
+      border-radius:14px;
+      font-family: "Courier New", monospace;
+      font-weight:800;
+      letter-spacing:3px;
+      font-size: clamp(0.95rem,2.6vw,1.15rem);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.02), 0 10px 30px rgba(39,160,62,0.06);
+      margin: 10px 0 18px 0;
+    }
+    /* provide an alternative stronger variant for small screens / centered layout */
+    .codeword.small-center { margin-left:auto; margin-right:auto; }
+
+    /* Make the action button match the prominence & visual language of the codeword */
+    .cta-button{
+      display:inline-block;
+      text-decoration:none;
+      color:#ffffff;
+      background: linear-gradient(135deg,#39B54A 0%, #2d8f3c 100%);
+      padding: 18px 42px;
+      border-radius:16px;
+      font-weight:800;
+      font-size: clamp(1rem,2.6vw,1.2rem);
+      box-shadow: 0 18px 50px rgba(57,181,74,0.24), inset 0 -6px 18px rgba(0,0,0,0.08);
+      border: 3px solid rgba(255,255,255,0.03);
+      transition: transform .18s ease, box-shadow .18s ease;
+      text-align:center;
+      line-height:1;
+    }
+    .cta-button:active{ transform: translateY(1px); }
+    .cta-button:focus{ outline: 3px solid rgba(57,181,74,0.22); outline-offset: 4px; }
+
+    /* For visual parity with the codeword, add a thin bright-green inner accent line to the button */
+    .cta-button::before{
+      content: "";
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      top: 8px;
+      bottom: 8px;
+      border-radius: 12px;
+      pointer-events:none;
+      mix-blend-mode: overlay;
+      background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
+    }
+
+    /* Responsive adjustments: ensure perfect appearance on mobile & laptop */
+    @media (max-width: 820px){
+      body{ padding:18px; }
+      .container{ padding: 0 6px; }
+      .header{ padding: 22px; }
+      .card{ padding: 20px; margin-bottom:18px; border-radius:16px; }
+      .floating-element{ display:none; }
+      .codeword{ max-width: 100%; font-size: 1.02rem; letter-spacing:2px; }
+      .cta-button{ display:block; width:100%; padding:16px; border-radius:14px; font-size:1.05rem; }
+    }
+
+    /* smaller laptop screens */
+    @media (min-width: 821px) and (max-width: 1100px){
+      .codeword{ max-width:420px; }
+      .cta-button{ padding:16px 34px; }
+    }
+
+    /* accessibility: reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      .floating-element, * { animation: none !important; transition: none !important; }
+    }
+
+    /* Decorative thin green line inside cards (matching second image) */
+    .card.inner-accent{
+      border: 2px solid rgba(57,181,74,0.08);
+      background: linear-gradient(180deg, rgba(20,35,20,0.18), rgba(10,14,10,0.12));
+      box-shadow: 0 20px 50px rgba(6,10,6,0.55);
+    }
+
+  </style>
+</head>
+<body>
+  <!-- subtle decorations -->
+  <svg class="floating-element floating-bowl" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="100" cy="140" rx="80" ry="20" fill="#39B54A" opacity="0.20"/>
+    <path d="M30,120 Q30,80 100,80 Q170,80 170,120 L170,140 Q170,160 100,160 Q30,160 30,140 Z" fill="#39B54A" opacity="0.12"/>
+  </svg>
+
+  <div class="container">
+    <div class="header">
+      <div class="vacature-badge">VACATURE</div>
+      <h1 class="logo-text">Soep&Soul</h1>
+      <p class="subtitle">zoekt een Developer</p>
+      <div style="height:10px"></div>
+      <p class="tagline">Die past in een soulvolle omgeving</p>
+    </div>
+
+    <div class="card">
+      <p class="intro">Welkom bij <strong>Soep&Soul</strong>, waar SoeperManStan smaken uit Azië, Mediterranée en Caraïben mixt tot zintuiglijke symfonieën! Onze events bruisen van dampende soepen, [...]</p>
+    </div>
+
+    <div class="card">
+      <h2>
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden><circle cx="11" cy="11" r="8" stroke="white" stroke-width="1.8"/><path d="M21 21L16.65 16.65" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Wat zoeken we?
+      </h2>
+      <p class="content">Een creatieve <span style="color:#39B54A; font-weight:700">developer</span> (WordPress/SeedProd, Mailchimp, AI) voor automatiseringen van onze community-site. Positief en nieuwsgierig? Sluit je aan!</p>
+    </div>
+
+    <div class="card">
+      <h2>
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="white"/></svg>
+        Wat krijg je?
+      </h2>
+      <p class="content">Proef soepen in ons testpanel, creëer smaakcontent en experimenteer met AI (zoals ons Storyplatform). Werk samen met <strong>SoepenSoul</strong> aan culinaire innovatie en boost [...]</p>
+    </div>
+
+    <!-- CTA card with changes -->
+    <div class="card inner-accent">
+      <h2>
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" aria-hidden>
+          <path d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z" fill="white" opacity="0.06"/>
+        </svg>
+        Interesse?
+      </h2>
+
+      <!-- Instruction line: color & emphasis adjusted -->
+      <span class="cta-instruction">
+        Stuur een DM via WhatsApp met <span class="muted">codewoord</span>:
+      </span>
+
+      <!-- Codeword: strongly visible and clearly clickable / copyable -->
+      <div class="codeword small-center" role="note" aria-label="Codewoord om in WhatsApp te gebruiken">
+        SOEPENSOUL&nbsp;&nbsp;PLATFORM
+      </div>
+
+      <p class="content" style="margin-top:6px;">
+        en vertel hoe jij AI-Infused smaak toevoegt aan de automatisering van Soep&Soul en ontvang het projectoverzicht!
+      </p>
+
+      <!-- Prominent button matching same visual language as the codeword -->
+      <div style="margin-top:20px;">
+        <a
+          class="cta-button"
+          href="https://wa.me/31616146110?text=Hallo%20Soep%26Soul%20-%20ik%20stuur%20je%20dit%20met%20codewoord%20SOEPENSOUL%20PLATFORM"
+          target="_blank" rel="noopener noreferrer"
+          aria-label="Start WhatsApp Chat met Soep&Soul"
+        >
+          Start WhatsApp Chat →
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Simple intersection observer to ensure smooth reveal on scroll (kept minimal for mobile perf)
+    (function(){
+      const cards = document.querySelectorAll('.card');
+      if('IntersectionObserver' in window){
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if(e.isIntersecting) e.target.style.opacity = 1;
+          });
+        }, {threshold: 0.08});
+        cards.forEach(c => { c.style.opacity = 0.98; obs.observe(c); });
+      }
+    })();
+  </script>
+</body>
+</html>   
